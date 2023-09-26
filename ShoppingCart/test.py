@@ -1,6 +1,6 @@
 import requests
 
-BASE = "http://127.0.0.1:5000/"
+BASE = "http://127.0.0.1:5000/returnjson"
 
-response = requests.get(BASE + "helloworld")
-print(response.json())
+response = requests.get(BASE + "returnjson")
+print(response.text)
