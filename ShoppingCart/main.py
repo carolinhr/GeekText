@@ -2,15 +2,14 @@ from flask import Flask
 from flask_restful import Api, Resource
   
 app =   Flask(__name__)
-  
 api =   Api(app)
   
-class returnjson(Resource):
+class returnjson(Resource): # note to self: run main.py & open up the host address on browser before running API requests, otherwise there will be errors
     def get(self):
-        data={
-            "data": "Hello World"
-        }
-        return data
+        return {"data": "Hello World"}
+    
+    def post(self):
+        return {"data": "Posted"}
   
 api.add_resource(returnjson,'/returnjson')
   
