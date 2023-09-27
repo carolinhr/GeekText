@@ -4,7 +4,7 @@ from flask_restful import Api, Resource
 app =   Flask(__name__)
 api =   Api(app)
   
-class ShoppingCart(Resource): # note to self: run main.py & open up the host address on browser before running API requests, otherwise there will be errors
+class ShoppingCart(Resource): # note to self: run main.py in a separate split terminal before running requests in other files, otherwise there will be errors
     def get(self):
         return {"name": "Textbook1",
                 "price": "$60.00",
