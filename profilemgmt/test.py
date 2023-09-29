@@ -2,7 +2,6 @@ import requests
 
 BASE = "http://127.0.0.1:5000/"
 
-response = requests.get(BASE + "helloworld")
+response = requests.get(BASE + "user")
 
-print(response.status_code)
-print(response.json())
+#print(response.json())
