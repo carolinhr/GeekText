@@ -7,9 +7,9 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.sqlite3' #real URI TBD
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
-class Users(db.Model):
-    _id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.Integer, unique = True, nullable= False, primary_key = True) #need for having username as primary key TBD
+class User(db.Model):
+    #_id = db.Column(db.Integer, primary_key = True)
+    username = db.Column(db.String, unique = True, nullable= False, primary_key = True) #need for having username as primary key TBD
     password = db.Column(db.String, nullable= False)
     name = db.Column(db.String)
     email = db.Column(db.String)
