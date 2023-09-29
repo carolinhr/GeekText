@@ -1,11 +1,14 @@
-
 from flask import Flask, request
 from flask_restful import Api, Resource
 from database import db
 from database import User
 
+
 app = Flask(__name__)
 api = Api(app)
+
+if __name__ == "__main__":
+    app.run(debug=True) 
 
 #class User(Resource):
  #   def get(self):
@@ -31,13 +34,11 @@ def add_user():
     db.session.add(new_user)
     db.session.commit()
 
-    BASE = "http://127.0.0.1:5000/"
+BASE = "http://127.0.0.1:5000/"
 
-    response = request.post(BASE + "user")
-    print(response.status_code)
-    print(response.json())
-
-if __name__ == "__main__":
-    app.run(debug=True) 
+response = request.post(BASE + "user")
+print(response.status_code)
+print(response.json())
+    
     
 
