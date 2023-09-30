@@ -1,5 +1,13 @@
 from flask import Flask, request
+
 app = Flask(__name__)
+
+bookstore_data = [
+    {'book_id': 1, 'comment': 'Great book!', 'rating': 5},
+    {'book_id': 2, 'comment': 'Interesting read', 'rating': 4},
+    {'book_id': 3, 'comment': 'Needs improvement', 'rating': 2}
+]
+
 @app.route('/add_comment_rating', methods=['POST'])
 def add_comment_rating():
     try:
@@ -7,15 +15,21 @@ def add_comment_rating():
         book_id = data.get('book_id')
         comment = data.get('comment')
         rating = data.get('rating')
+
         if book_id is None or comment is None or rating is None:
             return '{"error": "book_id, comment, and rating are required"}', 400
+
         bookstore_data.append({'book_id': book_id, 'comment': comment, 'rating': rating})
+
         return '{"message": "Comment and rating added successfully"}', 201
+
     except Exception as e:
         return '{"error": "' + str(e) + '"}', 500
+
 @app.route('/get_comments_ratings/<int:book_id>', methods=['GET'])
 def get_comments_ratings(book_id):
     book_data = [entry for entry in bookstore_data if entry['book_id'] == book_id]
     return str(book_data), 200
+
 if __name__ == '__main__':
     app.run(debug=True)
