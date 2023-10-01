@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask, request, jsonify
 from flask_restful import Api, Resource
 from database import *
 
@@ -26,11 +26,27 @@ def add_user():
     db.session.commit()
     return 'User added successfully', 201  # return a success response
    
+
+@app.route('/user/<username>', methods=['GET'])
+def get_user(username):
+    user = User.query.filter_by(username=username).first()
+    if user:
+        # Convert the User object to a dictionary for JSON serialization
+        user_data = {
+            'username': user.username,
+            'name': user.name,
+            'email': user.email,
+            'credit_card': user.cc_number,
+            'home_address': user.home_address
+        }
+        return jsonify(user_data), 200
+    else:
+        return 'User not found', 404
+    
+
 if __name__ == "__main__":
-    # create the database tables before running the application
     with app.app_context():
         db.create_all()
-    app.run(debug=True)
-    
+app.run(debug=True)
     
 

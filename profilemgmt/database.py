@@ -9,12 +9,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class User(db.Model):
-    #_id = db.Column(db.Integer, primary_key = True)
-    username = db.Column(db.String, unique = True, nullable= False, primary_key = True) #need for having username as primary key TBD
-    password = db.Column(db.String, nullable= False)
+    username = db.Column(db.String, unique = True, nullable = False, primary_key = True) #need for having username as primary key TBD
+    password = db.Column(db.String, nullable = False)
     name = db.Column(db.String)
-    email = db.Column(db.String)
-    cc_number = db.Column('card number', db.Integer)
+    email = db.Column(db.String, unique = True)
     home_address = db.Column('home address', db.String)
     
     def __init__(self, username, password, name, email, cc_number, home_address):
@@ -27,4 +25,3 @@ class User(db.Model):
 
 if __name__ == "__main__":
     app.run(debug=True)
-#create new classes based on chosen features (ex: book genres, prices, etc.)
