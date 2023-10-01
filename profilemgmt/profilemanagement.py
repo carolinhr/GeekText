@@ -1,44 +1,36 @@
 from flask import Flask, request
 from flask_restful import Api, Resource
-from database import db
-from database import User
-
+from database import *
 
 app = Flask(__name__)
 api = Api(app)
 
-if __name__ == "__main__":
-    app.run(debug=True) 
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Set to False to disable tracking
 
-#class User(Resource):
- #   def get(self):
-  #      return {'data': 'Hello World'}
-   # 
-    #def post(self):
-     #   return {'data': 'Posted'}
-    
-#api.add_resource(User, '/helloworld')
+db.init_app(app)
 
 #creating new user
-#@app.route('user', methods=['POST'])
+@app.route('/user', methods=['POST'])
 def add_user():
-    name = request.json['name']
-    username = request.json['username']
-    password = request.json['password']
-    email = request.json['email', None]
-    cc_number = request.json['credit card', None]
-    home_address = request.json['home address', None]
+    data = request.json
+    username = data['username']
+    password = data['password']
+    name = data['name']
+    email = data.get('email') # use .get() to handle missing keys 
+    cc_number = data.get('credit_card') 
+    home_address = data.get('home_address')
 
-    new_user = User(name, username, password, email, cc_number, home_address)
-
+    # Create a new User object and add it to the database
+    new_user = User(username, password, name, email, cc_number, home_address)
     db.session.add(new_user)
     db.session.commit()
-
-BASE = "http://127.0.0.1:5000/"
-
-response = request.post(BASE + "user")
-print(response.status_code)
-print(response.json())
+    return 'User added successfully', 201  # return a success response
+   
+if __name__ == "__main__":
+    # create the database tables before running the application
+    with app.app_context():
+        db.create_all()
+    app.run(debug=True)
     
     
 

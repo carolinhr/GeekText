@@ -25,6 +25,6 @@ class User(db.Model):
         self.cc_number = cc_number
         self.home_address = home_address
 
-
+if __name__ == "__main__":
+    app.run(debug=True)
 #create new classes based on chosen features (ex: book genres, prices, etc.)
-db.create_all() #this should be placed after the last created db class 
