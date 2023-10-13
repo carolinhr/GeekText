@@ -4,12 +4,12 @@ import os
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite') #real URI TBD
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'db.sqlite') 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class User(db.Model):
-    username = db.Column(db.String, unique = True, nullable = False, primary_key = True) #need for having username as primary key TBD
+    username = db.Column(db.String, unique = True, nullable = False, primary_key = True) 
     password = db.Column(db.String, nullable = False)
     name = db.Column(db.String)
     email = db.Column(db.String, unique = True)
