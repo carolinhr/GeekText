@@ -1,0 +1,6 @@
+# Ignore files and directories with a specific name or pattern
+PUT+PATCH/__pycache__
+
+
+# Ignore all files in a specific directory
+.vscode/
