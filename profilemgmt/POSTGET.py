@@ -1,16 +1,16 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Blueprint
 from flask_restful import Api, Resource
-from database import *
+from database import User, db
 
-app = Flask(__name__)
-api = Api(app)
+#app = Flask(__name__)
+#api = Api(app)
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Set to False to disable tracking
-
-db.init_app(app)
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Set to False to disable tracking
+postget_routes = Blueprint('postget_routes', __name__)
+#db.init_app(app)
 
 #creating new user
-@app.route('/user', methods=['POST'])
+@postget_routes.route('/user', methods=['POST'])
 def add_user():
     data = request.json
     username = data['username']
@@ -27,7 +27,7 @@ def add_user():
     return 'User added successfully', 201  # return a success response
    
 
-@app.route('/user/<username>', methods=['GET'])
+@postget_routes.route('/user/<username>', methods=['GET'])
 def get_user(username):
     user = User.query.filter_by(username=username).first()
     if user:
@@ -43,10 +43,10 @@ def get_user(username):
     else:
         return 'User not found', 404
     
-    
+    '''
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()
 app.run(debug=True)
-    
+    '''
 
