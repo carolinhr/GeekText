@@ -35,15 +35,15 @@ def get_user(username):
         user_data = {
             'username': user.username,
             'name': user.name,
+            'password': user.password,
             'email': user.email,
-            'credit_card': user.cc_number,
             'home_address': user.home_address
         }
         return jsonify(user_data), 200
     else:
         return 'User not found', 404
     
-
+    
 if __name__ == "__main__":
     with app.app_context():
         db.create_all()

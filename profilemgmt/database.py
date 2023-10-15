@@ -20,7 +20,6 @@ class User(db.Model):
         self.password = password
         self.name = name
         self.email = email
-        self.cc_number = cc_number
         self.home_address = home_address
 
 if __name__ == "__main__":
