@@ -1,0 +1,55 @@
+from flask import Flask, request
+from flask_restful import Api, Resource
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///books.db' 
+db = SQLAlchemy(app)
+api = Api(app)
+with app.app_context():
+    class Book(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        name = db.Column(db.String(255), unique=True, nullable=False)
+        review = db.Column(db.String(255), nullable=True)
+        rating = db.Column(db.Integer, nullable=True)
+
+    db.create_all()
+
+    class BookResource(Resource):
+        def get(self, name):
+            book = Book.query.filter_by(name=name).first()
+            if book:
+                return {"name": book.name, "review": book.review, "rating": book.rating}
+            else:
+                return {"error": "Book not found"}, 404
+
+        def post(self, name):
+            data = request.get_json()
+            if data:
+                new_book = Book(name=name, review=data.get("review"), rating=data.get("rating"))
+                db.session.add(new_book)
+                db.session.commit()
+                return {"message": f"Book '{name}' added successfully"}, 201
+            else:
+                return {"error": "Invalid data in the request body"}, 400
+
+        def put(self, name):
+            data = request.get_json()
+            if data:
+                book = Book.query.filter_by(name=name).first()
+                if book:
+                    book.review = data.get("review", book.review)
+                    book.rating = data.get("rating", book.rating)
+                else:
+                    new_book = Book(name=name, review=data.get("review"), rating=data.get("rating"))
+                    db.session.add(new_book)
+                db.session.commit()
+                return {"message": f"Book '{name}' updated successfully"}, 201
+            else:
+                return {"error": "Invalid data in the request body"}, 400
+
+    api.add_resource(BookResource, "/books/<string:name>")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+
