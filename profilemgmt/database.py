@@ -17,6 +17,7 @@ class User(db.Model):
     name = db.Column(db.String)
     email = db.Column(db.String, unique = True)
     home_address = db.Column('home address', db.String)
+    cc_number = db.Column('credit card', db.Integer)
     
     def __init__(self, username, password, name, email, cc_number, home_address):
         self.username = username
@@ -24,8 +25,6 @@ class User(db.Model):
         self.name = name
         self.email = email
         self.home_address = home_address
+        self.cc_number = cc_number
+        
 
-'''
-if __name__ == "__main__":
-    app.run(debug=True)
-'''
