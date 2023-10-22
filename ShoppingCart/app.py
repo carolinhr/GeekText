@@ -20,8 +20,6 @@ class TextbookModel(db.Model):
     def __repr__(self):
         return f"Textbook(name = {name}, author = {author}, price = {price})"
 
-db.create_all()
-
 textbook_post_args = reqparse.RequestParser()
 textbook_post_args.add_argument("name", type=str, help="Textbook name required", required = True)
 textbook_post_args.add_argument("price", type=float, help="Textbook price required", required = True)
