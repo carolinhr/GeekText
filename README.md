@@ -1,13 +1,11 @@
 API Service that supports an online web application bookstore that targets a particular niche in technology.
 
 Features include:
-- Book Browsing and Sorting 
 - Profile Management 
 - Shopping Cart 
-- Book Rating and Commenting 
 - Wish List Management
 
-[INSERT NAMES OF COLLABORATORS] 
+Made by: Carolin Heredia, Kameron Harrison, Nathan Hababou
 
 LICENSING: 
 MIT License
