@@ -12,8 +12,8 @@ def add_user():
     password = data['password']
     name = data['name']
     email = data.get('email') # use .get() to handle missing keys 
-    credit_card = data.get('credit_card') 
-    home_address = data.get('home_address')
+    credit_card = data.get('credit card') 
+    home_address = data.get('home address')
 
     # create a new User object and add it to the database
     new_user = User(username, password, name, email, home_address, credit_card)
@@ -31,13 +31,14 @@ def get_user(username):
             'name': user.name,
             'password': user.password,
             'email': user.email,
-            'home_address': user.home_address,
-            'credit card': {
+            'home address': user.home_address,
+        }        
+        if user.credit_card:
+            user_data['credit card'] = {
                 'number': user.credit_card.cc_number,
                 'cvv': user.credit_card.cvv,
                 'expiration date': user.credit_card.expiration_date
             }
-        }
         return jsonify(user_data), 200
     else:
         return 'User not found', 404
