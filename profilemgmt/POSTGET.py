@@ -32,12 +32,13 @@ def get_user(username):
             'password': user.password,
             'email': user.email,
             'home_address': user.home_address,
-            'credit card': {
+        }
+        if user.credit_card:
+            user_data['credit card'] = {
                 'number': user.credit_card.cc_number,
                 'cvv': user.credit_card.cvv,
                 'expiration date': user.credit_card.expiration_date
             }
-        }
         return jsonify(user_data), 200
     else:
         return 'User not found', 404
