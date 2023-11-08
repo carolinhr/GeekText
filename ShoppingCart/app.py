@@ -70,10 +70,18 @@ class Textbook(Resource):
         db.session.delete(textbook_to_delete)
         db.session.commit()
         return {"message": f"Textbook with ID {textbook_id} has been deleted."}, 204
-        
+
+class Subtotal(Resource):
+    def get(self, user_id):
+        textbooks = TextbookModel.query.filter_by(user_id=user_id).all()
+        if not textbooks:
+            abort(404, message="Shopping cart empty.")
+        subtotal = sum(textbook.price for textbook in textbooks)
+        return {'subtotal': subtotal}
 
 api.add_resource(ShoppingCart,'/shoppingcart/<int:user_id>')
 api.add_resource(Textbook,'/shoppingcart/<int:user_id>/<int:textbook_id>')
+api.add_resource(Subtotal,'/shoppingcart/<int:user_id>/subtotal')
   
 if __name__=='__main__':
     app.run(debug=True)
