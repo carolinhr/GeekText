@@ -13,6 +13,6 @@ data = [{"name" : "textbook0", "author" : "author0", "price" : 60.00},
 # input()
 # response = requests.delete(BASE + "shoppingcart/0/1")
 # print(response)
-input()
-response = requests.get(BASE + "shoppingcart/0")
+# input()
+response = requests.get(BASE + "shoppingcart/0/subtotal")
 print(response.json())
