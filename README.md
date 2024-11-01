@@ -3,7 +3,6 @@ API Service that supports an online web application bookstore that targets a par
 Features include:
 - Profile Management 
 - Shopping Cart 
-- Wish List Management
 
 Made by: Carolin Heredia, Kameron Harrison, Nathan Hababou
 
